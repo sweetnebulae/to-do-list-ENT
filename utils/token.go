@@ -12,10 +12,10 @@ type Claims struct {
 	jwt.RegisteredClaims
 }
 
-func GenerateTokens(UserID uuid.UUID, Username string, secretkey string) (string, error) {
+func GenerateTokens(UserID uuid.UUID, username string, secretKey string) (string, error) {
 	claims := Claims{
-		UserID:   uuid.New(),
-		Username: Username,
+		UserID:   UserID,
+		Username: username,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(12 * time.Hour)),
 			IssuedAt:  jwt.NewNumericDate(time.Now()),
@@ -23,5 +23,5 @@ func GenerateTokens(UserID uuid.UUID, Username string, secretkey string) (string
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString([]byte(secretkey))
+	return token.SignedString([]byte(secretKey))
 }
