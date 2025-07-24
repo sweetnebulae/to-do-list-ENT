@@ -1,0 +1,9 @@
+# Abaikan semua dalam folder ent
+ent/*
+
+# Tapi kecualikan schema dan generate.go
+!ent/schema/
+!ent/schema/**/*
+
+.env
+.env.*
