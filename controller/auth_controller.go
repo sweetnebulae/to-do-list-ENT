@@ -51,10 +51,10 @@ func (s *UserController) Login(w http.ResponseWriter, r *http.Request, params ht
 	helper.RespondJSON(w, http.StatusOK, map[string]string{"token": token})
 }
 
-func (c *UserController) Logout(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func (s *UserController) Logout(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	id := r.Context().Value("id").(uuid.UUID)
 
-	if err := c.UserService.Logout(r.Context(), id.String()); err != nil {
+	if err := s.UserService.Logout(r.Context(), id.String()); err != nil {
 		http.Error(w, `{"error":"failed to logout"}`, http.StatusInternalServerError)
 		return
 	}

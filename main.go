@@ -12,12 +12,23 @@ import (
 func main() {
 	client := config.ConnectDB()
 	defer config.DisconnectDB(client)
+
 	secretKey := os.Getenv("SECRET_KEY")
 	cacheService := utils.NewCacheService()
+
+	// Initialising User Service and Controller
 	userService := service.NewUserService(client, secretKey, cacheService)
 	userController := controller.NewUserController(*userService, *cacheService)
-	routes := router.NewRouter(userController)
 
+	// Initialising Task Service and Controller
+	taskService := service.NewTaskService(client)
+	taskController := controller.NewTaskController(*taskService)
+
+	// Inject to all route
+	routes := router.NewRouter(userController, taskController)
+
+	// Start server
 	config.StartServer(routes)
+
 	select {}
 }

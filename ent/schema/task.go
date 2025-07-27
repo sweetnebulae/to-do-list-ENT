@@ -33,8 +33,9 @@ func (Task) Fields() []ent.Field {
 // Edges of the Task.
 func (Task) Edges() []ent.Edge {
 	return []ent.Edge{
-		edge.From("users", User.Type).
+		edge.From("owner", User.Type).
 			Ref("tasks").
-			Unique(),
+			Unique().
+			Required(),
 	}
 }

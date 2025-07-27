@@ -6,9 +6,9 @@ import (
 	"github.com/julienschmidt/httprouter"
 )
 
-func Adapt(fn httprouter.Handle) http.Handler {
+func Adapt(h httprouter.Handle) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		params := httprouter.ParamsFromContext(r.Context())
-		fn(w, r, params)
+		h(w, r, params)
 	})
 }

@@ -29,16 +29,9 @@ func DecodeJSON(r *http.Request, result interface{}) error {
 	return nil
 }
 
-// RespondJSON encodes result to JSON and writes to response
-func RespondJSON(w http.ResponseWriter, code int, result interface{}) {
+func RespondJSON(w http.ResponseWriter, code int, payload interface{}) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.WriteHeader(code)
 
-	if result == nil {
-		return
-	}
-
-	if err := json.NewEncoder(w).Encode(result); err != nil {
-		http.Error(w, "failed to encode JSON", http.StatusInternalServerError)
-	}
+	_ = json.NewEncoder(w).Encode(payload)
 }

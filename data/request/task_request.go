@@ -1,7 +1,6 @@
 package request
 
 import (
-	"github.com/google/uuid"
 	"time"
 )
 
@@ -12,8 +11,8 @@ type CreateTask struct {
 }
 
 type UpdateTask struct {
-	Id    uuid.UUID `json:"id"`
-	Title string    `json:"title"`
-	Note  string    `json:"note"`
-	Due   time.Time `json:"due_date"`
+	Title    *string    `json:"title"`
+	Note     *string    `json:"note"`
+	Complete *bool      `json:"complete"`
+	Due      *time.Time `json:"due_date"`
 }
